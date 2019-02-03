@@ -1,0 +1,39 @@
+plugins {
+	id 'cpp'
+	id 'google-test'
+}
+
+model {
+
+    repositories {
+        libs(PrebuiltLibraries) {
+            googleTest { 
+                headers.srcDir System.getenv('GTEST_INCLUDE')
+                binaries.withType(StaticLibraryBinary) { 
+                    staticLibraryFile = file("${System.getenv('GTEST_DIR')}/${targetPlatform.operatingSystem.windows ? 'gtest.lib': 'libgtest.a'}") 
+              }
+            }
+        }
+    }
+
+	components {
+		cleantests(NativeLibrarySpec) {}
+	}
+	
+	binaries {
+      withType(SharedLibraryBinarySpec) {  
+          if (toolChain in VisualCpp) { 
+              cppCompiler.define "DLL_EXPORT" 
+          }
+      }
+      withType(GoogleTestTestSuiteBinarySpec) { 
+          lib library: "googleTest", linkage: "static" 
+
+          if (targetPlatform.operatingSystem.linux) { 
+              cppCompiler.args '-pthread'
+              linker.args '-pthread'
+          }
+      }
+  }
+
+}
