@@ -3,6 +3,7 @@ package cleanTests;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -27,12 +28,8 @@ public class MockitoTaskAssignmentTest {
     @Mock
     private TaskStorage storage;
 
+    @InjectMocks
     private TaskAssignment assignment;
-
-    @Before
-    public void setUp() {
-        assignment = new TaskAssignment(storage);
-    }
 
     @Test
     public void noAssignmentHappensIfThereAreNoTasks() {
