@@ -15,7 +15,7 @@ public class TaskAssignment {
         this.assignedTasks = new HashMap<>();
     }
 
-    public boolean assignTaskIfPossible(Executor executor) {
+    public Optional<Task> assignTaskIfPossible(Executor executor) {
         if ( availableForAssignment(executor) ) {
             List<Task> availableTasks;
             Optional<String> optionalExecutorGroup = executor.getGroup();
@@ -25,12 +25,13 @@ public class TaskAssignment {
                 availableTasks = taskStorage.getTasks();
             }
             if (!availableTasks.isEmpty()) {
-                assignedTasks.put(executor, availableTasks.get(0));
-                taskStorage.remove(availableTasks.get(0));
-                return true;
+                Task taskForExecutor = availableTasks.get(0);
+                assignedTasks.put(executor, taskForExecutor);
+                taskStorage.remove(taskForExecutor);
+                return Optional.of(taskForExecutor);
             }
         }
-        return false;
+        return Optional.empty();
     }
 
     public boolean availableForAssignment(Executor executor) {

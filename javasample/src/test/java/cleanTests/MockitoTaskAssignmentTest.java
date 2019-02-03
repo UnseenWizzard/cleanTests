@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static cleanTests.TestTasks.*;
+import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
@@ -35,7 +36,7 @@ public class MockitoTaskAssignmentTest {
 
     @Test
     public void noAssignmentHappensIfThereAreNoTasks() {
-        assertFalse(assignment.assignTaskIfPossible(DEFAULT_EXECUTOR));
+        assertThat(assignment.assignTaskIfPossible(DEFAULT_EXECUTOR), equalTo(empty()));
     }
 
     @Test
@@ -51,7 +52,7 @@ public class MockitoTaskAssignmentTest {
     public void executorWithGroupGetsNoTaskIfNoneFromGroupAvailable() {
         when(storage.getTasksInGroup(GROUP_B)).thenReturn(Collections.emptyList());
 
-        assertFalse(assignment.assignTaskIfPossible(GROUP_B_EXECUTOR));
+        assertThat(assignment.assignTaskIfPossible(GROUP_B_EXECUTOR), equalTo(empty()));
     }
 
     @Test
@@ -69,7 +70,7 @@ public class MockitoTaskAssignmentTest {
 
         assignment.assignTaskIfPossible(DEFAULT_EXECUTOR);
 
-        assertFalse(assignment.assignTaskIfPossible(DEFAULT_EXECUTOR));
+        assertThat(assignment.assignTaskIfPossible(DEFAULT_EXECUTOR), equalTo(empty()));
     }
 
     @Test

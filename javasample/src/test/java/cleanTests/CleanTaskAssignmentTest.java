@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Optional;
 
+import static java.util.Optional.empty;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
@@ -27,7 +28,7 @@ public class CleanTaskAssignmentTest {
 
     @Test
     public void noAssignmentHappensIfThereAreNoTasks() {
-        assertFalse(assignment.assignTaskIfPossible(DEFAULT_EXECUTOR));
+        assertThat(assignment.assignTaskIfPossible(DEFAULT_EXECUTOR), equalTo(empty()));
     }
 
     @Test
@@ -43,7 +44,7 @@ public class CleanTaskAssignmentTest {
     public void executorWithGroupGetsNoTaskIfNoneFromGroupAvailable() {
         storage.add(TestTasks.GROUP_A_TASK1);
 
-        assertFalse(assignment.assignTaskIfPossible(GROUP_B_EXECUTOR));
+        assertThat(assignment.assignTaskIfPossible(GROUP_B_EXECUTOR), equalTo(empty()));
     }
 
     @Test
@@ -61,7 +62,7 @@ public class CleanTaskAssignmentTest {
 
         assignment.assignTaskIfPossible(DEFAULT_EXECUTOR);
 
-        assertFalse(assignment.assignTaskIfPossible(DEFAULT_EXECUTOR));
+        assertThat(assignment.assignTaskIfPossible(DEFAULT_EXECUTOR), equalTo(empty()));
     }
 
     @Test

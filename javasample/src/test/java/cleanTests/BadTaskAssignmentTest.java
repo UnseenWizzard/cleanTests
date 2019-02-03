@@ -35,7 +35,7 @@ public class BadTaskAssignmentTest {
         storage.add(new Task(1, "group_B"));
         storage.add(new Task(42, "group_C"));
 
-        assertTrue(assignment.assignTaskIfPossible(executor));
+        assertTrue(assignment.assignTaskIfPossible(executor).isPresent());
 
         Optional<Task> currentTask = assignment.getCurrentlyExecutedTask(executor);
 
@@ -43,11 +43,11 @@ public class BadTaskAssignmentTest {
         assertEquals(1, currentTask.get().id);
         assertEquals("group_A", currentTask.get().group);
 
-        assertFalse(assignment.assignTaskIfPossible(executor));
+        assertFalse(assignment.assignTaskIfPossible(executor).isPresent());
 
         assignment.finishCurrentTask(executor);
 
-        assertTrue(assignment.assignTaskIfPossible(executor));
+        assertTrue(assignment.assignTaskIfPossible(executor).isPresent());
 
         currentTask = assignment.getCurrentlyExecutedTask(executor);
 
@@ -58,7 +58,7 @@ public class BadTaskAssignmentTest {
         assignment.finishCurrentTask(executor);
         storage.remove(new Task(1, "group_B"));
 
-        assertTrue(assignment.assignTaskIfPossible(executor));
+        assertTrue(assignment.assignTaskIfPossible(executor).isPresent());
 
         currentTask = assignment.getCurrentlyExecutedTask(executor);
 
@@ -72,14 +72,14 @@ public class BadTaskAssignmentTest {
         assertFalse(assignment.hasTaskAssigned(executor));
         assertTrue(storage.getTasks().isEmpty());
 
-        assertFalse(assignment.assignTaskIfPossible(executor));
+        assertFalse(assignment.assignTaskIfPossible(executor).isPresent());
 
         storage.add(new Task(1, "group_A"));
         storage.add(new Task(2, "group_A"));
         storage.add(new Task(1, "group_B"));
         storage.add(new Task(42, "group_C"));
 
-        assertTrue(assignment.assignTaskIfPossible(executor));
+        assertTrue(assignment.assignTaskIfPossible(executor).isPresent());
 
         Optional<Task> currentTask = assignment.getCurrentlyExecutedTask(executor);
 
@@ -87,13 +87,13 @@ public class BadTaskAssignmentTest {
         assertEquals(1, currentTask.get().id);
         assertEquals("group_A", currentTask.get().group);
 
-        assertFalse(assignment.assignTaskIfPossible(executor));
+        assertFalse(assignment.assignTaskIfPossible(executor).isPresent());
 
         assignment.finishCurrentTask(executor);
 
         executor.setGroup("group_D");
 
-        assertFalse(assignment.assignTaskIfPossible(executor));
+        assertFalse(assignment.assignTaskIfPossible(executor).isPresent());
     }
 
 }
