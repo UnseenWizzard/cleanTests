@@ -1,5 +1,8 @@
+# Clean Tests
+
 This repo contains the code samples for my article on _clean tests_, which you can find on [my blog](https://unseenwizzard.github.io/2019/02/03/cleanTests.html) as well as further down in this readme. 
 
+## Build steps
 To build the source code in this repo you will need to have GoogleTest and can use use gradle: 
 
 0) Install GoogleTest
@@ -12,14 +15,13 @@ Mainly this exists for you to have a look at the tests, the actual source code j
 So check out the [Java tests](https://github.com/UnseenWizzard/cleanTests/tree/master/javasample/src/test/java/cleanTests) (C++ version of the tests coming soon)
 
 ----
+## Article
 
 > This is adapted from an article I wrote for my colleagues at [incubedIT](http://www.incubedit.com/) after a sprint in which my team focused heavily on testing as we were implementing a large feature, that slightly changed many parts of the existing system. 
 > We wanted to share some of the things we did with others, and I wanted to raise awareness of what makes a test useful.
 
 > All the original code sample were specific examples taken from our source code. 
 > For this version have been replaced with general examples. You can find a project of these examples on my [cleanTests github repo](https://github.com/UnseenWizzard/cleanTests), where I'll also put a C++ version using GoogleTest soon.
-
-# Clean Tests
 
 We all agree that having tests is a good thing. 
 
